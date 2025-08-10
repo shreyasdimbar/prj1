@@ -10,6 +10,7 @@ void issueBook();
 void printtotalRecords();
 void printpertrecords();
 void IBcopytoFile();
+void submitBook();
 
 
 
@@ -65,7 +66,8 @@ void mainMenu1() {
 	cout << "      1. Do you want to issue any Book" << endl;
 	cout << "      2. Do you want to see any Perticuler Record" << endl;
 	cout << "      3. Want to see total previous Records" << endl;
-	cout << "      4. Close Programme" << endl;
+	cout << "      4. Submit a Book " << endl;
+	cout << "      5. Close Programme" << endl;
 }
 void mainMenu2(int maina) {
 	if(maina == 1) {
@@ -75,6 +77,8 @@ void mainMenu2(int maina) {
 		printpertrecords();
 	} else if(maina == 3) {
 		printtotalRecords();
+	}else if(maina == 4){
+		submitBook();
 	}
 }
 
@@ -86,7 +90,7 @@ void issueBook() {
 	cin.ignore();
 	getline(cin,tempbookname);
 	bool proceedornot = false;
-	for(int i = 0 ; i < 95 ; i++) {
+	for(int i = 0 ; i < AVAbookNames.size() ; i++) {
 		if(tempbookname == AVAbookNames[i]) {
 			proceedornot = true;
 			break;
@@ -168,8 +172,29 @@ void submitBook(){
 	bool isFound = false;
 	for(int i = 0 ; i < issued_boooks.size() ; i++){
 		if(issued_boooks[i].PRN == tempPRN){
-			
+			isFound = true;
 		}
+	}
+	if(isFound){
+		bool isSubmitted = false;
+		cout << "Enter the name of book you want to submit : " << endl;
+		cin.ignore();
+		string subBook;
+		getline(cin, subBook);
+		for(int i = 0 ; i < issued_boooks.size() ; i++){
+			if(subBook == issued_boooks[i].bookName && issued_boooks[i].PRN == tempPRN){
+				swap(issued_boooks[i],issued_boooks[issued_boooks.size() - 1]);
+				isSubmitted = true;
+				break;
+			}
+		}
+		if(isSubmitted){
+			issued_boooks.pop_back();
+			cout << "Book Submitted Successfully" << endl << endl;
+		}
+	}else{
+		cout << "\n\nThere in no Book issued on your ID \n Issue Any to get Started\n\n" << endl;
+
 	}
 }
 int main() {
@@ -186,18 +211,18 @@ int main() {
 		int maina;
 		cin >> maina;
 
-		if (maina == 4) {
+		if (maina == 5) {
 			cout << "-----------------------------------------------------" << endl;
 			cout << "-----------------------------------------------------" << endl;
 			cout << "-----------------------------------------------------" << endl;
-			cout << "      Closing Programme. Goodbye!" << endl;
+			cout << "      Closing Programme. Goodbye!\n\n\n" << endl;
 
-			IBcopytoFile(); // Save the data
 			break;
 		}
 		mainMenu2(maina);
 		cout << "-----------------------------------------------------" << endl;
 		cout << "-----------------------------------------------------" << endl;
 	}
+	IBcopytoFile(); // Save the data
 	return 0;
 }
