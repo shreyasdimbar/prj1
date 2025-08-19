@@ -3,7 +3,6 @@
 # 📖 Simple CLI Library Management System 📖
 
 ![Language](https://img.shields.io/badge/Language-C%2B%2B-blue.svg)
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 ![Platform](https://img.shields.io/badge/Platform-Console-lightgrey.svg)
 
 </div>
